@@ -1,9 +1,0 @@
-// Microsoft Sentinel / Log Analytics illustrative queries.
-// Schema and ingestion may vary; adjust for the connector and table used.
-// Query SecurityEvent process creation data; only works if 4688 is collected.
-SecurityEvent
-| where EventID == 4688
-| where TimeGenerated > ago(7d)
-| where CommandLine has "powershell" or NewProcessName endswith @"\powershell.exe"
-| project TimeGenerated, Computer, Account, NewProcessName, ParentProcessName, CommandLine
-| order by TimeGenerated desc
